@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"golang.org/x/sync/errgroup"
+	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -30,6 +31,12 @@ func startHttpServer(ctx context.Context,addr string, handle http.Handler) error
 		Addr:    addr,
 		Handler: handle,
 	}
+
+	defer func() {
+		if err := recover(); err != nil {
+			log.Printf("recover with err: %+v \n",err)
+		}
+	}()
 
 	go func() {
 		select {
