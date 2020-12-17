@@ -22,9 +22,12 @@ func NewUserRepo(db *sql.DB) biz.UserRepo  {
 	return &userRepo{db: db}
 }
 
-func NewDb() (db *sql.DB,err error) {
-	db, err = sql.Open("mysql", "root:w135790@tcp(localhost:3306)/test?charset=utf8")
-	return
+func NewDb() *sql.DB {
+	db, err := sql.Open("mysql", "root:w135790@tcp(localhost:3306)/test?charset=utf8")
+	if err != nil {
+		panic(err)
+	}
+	return db
 }
 
 type userRepo struct {
@@ -44,5 +47,6 @@ func (u *userRepo) GetUserInfo(ctx context.Context,id int32) (*biz.User, error) 
 		}
 		return nil, xerrors.Wrap(err,"sql query failed")
 	}
-	return &biz.User{Id: 3,Name: "zhangsan",Age: 22,Sex: "man"},nil
+	return &user,nil
+	//return &biz.User{Id: 3,Name: "zhangsan",Age: 22,Sex: "man"},nil
 }

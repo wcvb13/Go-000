@@ -8,5 +8,7 @@ import (
 func main() {
 	app := di.InitApp()
 	err := app.Start()
-	log.Printf("app quit with err:%s",err.Error())
+	if err != nil {
+		log.Printf("app quit with err:%s\n",err.Error())
+	}
 }

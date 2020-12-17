@@ -1,3 +1,5 @@
+// +build wireinject
+
 package di
 
 import (
@@ -8,5 +10,5 @@ import (
 )
 
 func InitApp() *App {
-	panic(wire.Build(data.Dataset,biz.NewUserUsercase,service.NewUserService))
+	panic(wire.Build(NewApp,service.NewUserService,biz.NewUserUsercase,data.Dataset))
 }

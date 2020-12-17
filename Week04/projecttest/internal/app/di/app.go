@@ -27,7 +27,7 @@ func (app *App) Start() error {
 		return err
 	}
 	gs := grpc.NewServer()
-	v1.RegisterUserServiceServer(gs, &service.UserService{})
+	v1.RegisterUserServiceServer(gs, app.server)
 	g, ctx := errgroup.WithContext(context.Background())
 
 	g.Go(func() error {
